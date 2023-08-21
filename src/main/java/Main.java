@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("На сколько человек необходимо разделить счёт:");
-        int numberPerson = checkingNumberGuests(scanner);
+        int numberPerson = enterNumberFriends(scanner);
         InvoiceCalculator invoiceCalculator = new InvoiceCalculator();
         invoiceCalculator.addProduct (new Product("первый", 10.20));
         invoiceCalculator.addProduct (new Product("второй", 20.21));
@@ -17,7 +17,7 @@ public class Main {
         invoiceCalculator.showList();
 
     }
-    public static int checkingNumberGuests(Scanner scanner){
+    public static int enterNumberFriends(Scanner scanner){
         while (true) {
             if (scanner.hasNextInt()) {
                 int numberPeople = scanner.nextInt();
