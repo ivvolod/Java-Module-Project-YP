@@ -24,12 +24,10 @@ public class Main {
                 if (numberPeople <= 1) {
                     System.out.println("Введите корректное значение");
                 } else if (numberPeople > 1){
-                    System.out.println("все хорошо!");
                     return numberPeople;
-//                    break;
                 }
             }else {
-                System.out.println("Введите корректное значение");
+                System.out.println("Введите целое число");
             }
 
         }
