@@ -8,7 +8,6 @@ public class InvoiceCalculator {
 
     public void addProduct(Product product) {
         mProducts.add(product);
-        System.out.println("товар " + product.productName + " добавлен");
     }
 
     public double totalPrice() {
