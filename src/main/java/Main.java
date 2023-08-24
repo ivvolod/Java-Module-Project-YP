@@ -6,11 +6,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int numberPerson = enterNumberFriends(scanner);
         InvoiceCalculator invoiceCalculator = new InvoiceCalculator();
-
         billEntry(scanner,invoiceCalculator);
-
         invoiceCalculator.showList();
-        System.out.println(invoiceCalculator.totalPrice());
+        formatTotalPrice(invoiceCalculator, numberPerson);
 
         scanner.close();
 
@@ -50,11 +48,33 @@ public class Main {
                 }else System.out.println("Вы ошиблись, введите стоимость товара еще раз");
             }
             invoiceCalculator.addProduct(new Product(productName, price));
-            System.out.println("Товар добавлен. Хотите продолжить - введите любой символ, иначе - \"Завершить\"");
+            System.out.println("Товар добавлен. Хотите продолжить - введите любой не пробельный символ, иначе - \"Завершить\"");
             if (scanner.next().equalsIgnoreCase("Завершить")) {
                 break;
             }
         }
+    }
+
+    public static void formatTotalPrice(InvoiceCalculator invoiceCalculator, int numberPerson) {
+        int roundWhole = (int)Math.floor(invoiceCalculator.totalPrice()/numberPerson);
+        int lastDigit = roundWhole % 10;
+        String formatRuble = "рубль";
+
+        switch (lastDigit) {
+            case 1:
+                formatRuble = "рубль";
+                break;
+            case 2:
+            case 3:
+            case 4:
+                formatRuble = "рубля";
+                break;
+            default:
+                formatRuble = "рублей";
+                break;
+        }
+        String format = String.format("Итого каждому к оплате: %.2f %s", invoiceCalculator.totalPrice()/numberPerson, formatRuble);
+        System.out.println(format);
 
     }
 

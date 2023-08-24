@@ -19,8 +19,10 @@ public class InvoiceCalculator {
     }
 
     public void showList() {
+        System.out.println("Добавленные товары:");
         for (Product person: mProducts) {
-            System.out.println(person.productName);
+            String format = String.format("%s - %.2f", person.productName, person.price);
+            System.out.println(format);
         }
     }
 
