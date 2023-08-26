@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class InvoiceCalculator {
     List<Product> mProducts = new ArrayList<>();
 
@@ -12,7 +11,7 @@ public class InvoiceCalculator {
 
     public double totalPrice() {
         double price = 0;
-        for (Product person: mProducts) {
+        for (Product person : mProducts) {
             price = price + person.price;
         }
         return price;
@@ -20,7 +19,7 @@ public class InvoiceCalculator {
 
     public void showList() {
         System.out.println("Добавленные товары:");
-        for (Product person: mProducts) {
+        for (Product person : mProducts) {
             String format = String.format("%s - %.2f", person.productName, person.price);
             System.out.println(format);
         }

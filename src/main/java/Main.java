@@ -6,25 +6,27 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int numberPerson = enterNumberFriends(scanner);
         InvoiceCalculator invoiceCalculator = new InvoiceCalculator();
-        billEntry(scanner,invoiceCalculator);
+        billEntry(scanner, invoiceCalculator);
         invoiceCalculator.showList();
         formatTotalPrice(invoiceCalculator, numberPerson);
 
         scanner.close();
 
     }
-    public static int enterNumberFriends(Scanner scanner){
+
+    public static int enterNumberFriends(Scanner scanner) {
         System.out.print("На сколько друзей разделить счёт: ");
         while (true) {
             if (scanner.hasNextInt()) {
                 int numberPeople = scanner.nextInt();
                 if (numberPeople <= 1) {
-                    System.out.println("Введите корректное значение");
-                } else if (numberPeople > 1){
+                    System.out.print("Введите корректное значение: ");
+                } else if (numberPeople > 1) {
                     return numberPeople;
                 }
-            }else {
-                System.out.print("Введите целое число");
+            } else if (scanner.hasNextLine()) {
+                System.out.print("Введите целое число: ");
+                scanner.nextLine();
             }
         }
     }
@@ -38,14 +40,21 @@ public class Main {
                 if (scanner.hasNextLine()) {
                     productName = scanner.nextLine();
                     break;
-                }else System.out.println("Вы ошиблись, введите наименование товара еще раз");
+                } else System.out.println("Вы ошиблись, введите наименование товара еще раз");
             }
             System.out.print("Введите стоимость товара: ");
             while (true) {
                 if (scanner.hasNextDouble()) {
                     price = scanner.nextDouble();
-                    break;
-                }else System.out.println("Вы ошиблись, введите стоимость товара еще раз");
+                    if (price <= 1) {
+                        System.out.print("Введите корректное значение: ");
+                    } else if (price > 1) {
+                        break;
+                    }
+                } else if (scanner.hasNextLine()) {
+                    System.out.print("Вы ошиблись, введите стоимость товара еще раз: ");
+                    scanner.nextLine();
+                }
             }
             invoiceCalculator.addProduct(new Product(productName, price));
             System.out.println("Товар добавлен. Хотите продолжить - введите любой не пробельный символ, иначе - \"Завершить\"");
@@ -56,24 +65,29 @@ public class Main {
     }
 
     public static void formatTotalPrice(InvoiceCalculator invoiceCalculator, int numberPerson) {
-        int roundWhole = (int)Math.floor(invoiceCalculator.totalPrice()/numberPerson);
-        int lastDigit = roundWhole % 10;
+        int roundWhole = (int) Math.floor(invoiceCalculator.totalPrice() / numberPerson);
         String formatRuble = "рубль";
-
-        switch (lastDigit) {
-            case 1:
-                formatRuble = "рубль";
-                break;
-            case 2:
-            case 3:
-            case 4:
-                formatRuble = "рубля";
-                break;
-            default:
-                formatRuble = "рублей";
-                break;
+        int lastDigit = roundWhole % 10;
+        int twoLastDigits = roundWhole % 100;
+        if (roundWhole > 1000 & (twoLastDigits > 10 & twoLastDigits < 19)) {
+            formatRuble = "рублей";
+        } else {
+            switch (lastDigit) {
+                case 1:
+                    formatRuble = "рубль";
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    formatRuble = "рубля";
+                    break;
+                default:
+                    formatRuble = "рублей";
+                    break;
+            }
         }
-        String format = String.format("Итого каждому к оплате: %.2f %s", invoiceCalculator.totalPrice()/numberPerson, formatRuble);
+
+        String format = String.format("Итого каждому к оплате: %.2f %s", invoiceCalculator.totalPrice() / numberPerson, formatRuble);
         System.out.println(format);
 
     }
