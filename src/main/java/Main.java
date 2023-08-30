@@ -69,7 +69,7 @@ public class Main {
         String formatRuble = "рубль";
         int lastDigit = roundWhole % 10;
         int twoLastDigits = roundWhole % 100;
-        if (twoLastDigits > 10 & twoLastDigits < 19) {
+        if (twoLastDigits > 10 && twoLastDigits < 19) {
             formatRuble = "рублей";
         } else {
             switch (lastDigit) {

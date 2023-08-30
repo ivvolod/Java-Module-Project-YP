@@ -3,7 +3,7 @@ import java.util.List;
 
 
 public class InvoiceCalculator {
-    List<Product> mProducts = new ArrayList<>();
+    private final List<Product> mProducts = new ArrayList<>();
 
     public void addProduct(Product product) {
         mProducts.add(product);
